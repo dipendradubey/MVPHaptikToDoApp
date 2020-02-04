@@ -10,6 +10,10 @@ import UIKit
 
 class ImportantList: UITableViewController {
     
+    lazy var presenter: Presenter = {
+        return Presenter(DBHandler.sharedManager)
+    }()
+    
     lazy var predicate: NSPredicate = {
         let predicate1 = NSPredicate(format: "isdeleted == false")
         let predicate2 = NSPredicate(format: "isimp == true")
@@ -24,15 +28,13 @@ class ImportantList: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        arrToDo = DBHandler.sharedManager.fetchToDo(predicate)
-        tableView.reloadData()
+        fetchData()
     }
-    
-    
     
     // MARK: - Table view data source
     
@@ -49,5 +51,16 @@ class ImportantList: UITableViewController {
         cell.lblTitle.text = toDo.title
         cell.lblDesc.text = toDo.desc
         return cell
+    }
+}
+
+extension ImportantList: DBHandlerDelegate{
+    
+    func fetchData(){
+        presenter.fetchDataForPredicate(predicate)
+    }
+    func updateVCwithData(data: [ToDo]) {
+        arrToDo = data
+        tableView.reloadData()
     }
 }

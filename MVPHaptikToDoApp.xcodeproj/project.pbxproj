@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8194C2A23E933F700A00069 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8194C2923E933F700A00069 /* Presenter.swift */; };
+		A8194C2D23E934AE00A00069 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8194C2C23E934AE00A00069 /* Protocol.swift */; };
 		A8423EF223E7D639006C3589 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8423EF123E7D639006C3589 /* Util.swift */; };
 		A8423EF523E7E55C006C3589 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8423EF323E7E55C006C3589 /* ToDo+CoreDataClass.swift */; };
 		A8423EF623E7E55C006C3589 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8423EF423E7E55C006C3589 /* ToDo+CoreDataProperties.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A8194C2923E933F700A00069 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		A8194C2C23E934AE00A00069 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		A8423EF123E7D639006C3589 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		A8423EF323E7E55C006C3589 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A8423EF423E7E55C006C3589 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -51,6 +55,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8194C2423E9336000A00069 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A8194C2523E9336A00A00069 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A8C101E023E6A3A2008BA1D8 /* ToDoList.swift */,
+				A8C101E223E6A3C2008BA1D8 /* ImportantList.swift */,
+				A8C101E423E6A417008BA1D8 /* CustomCell.swift */,
+				A8C101E623E6A69B008BA1D8 /* ToDoVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A8194C2623E9337200A00069 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A8194C2923E933F700A00069 /* Presenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A8194C2723E9338100A00069 /* Data Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A8C1022F23E6B012008BA1D8 /* DBHandler.swift */,
+			);
+			path = "Data Manager";
+			sourceTree = "<group>";
+		};
+		A8194C2823E933A600A00069 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				A8423EF123E7D639006C3589 /* Util.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		A8194C2B23E9349000A00069 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A8194C2C23E934AE00A00069 /* Protocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		A8C101C023E6A1AD008BA1D8 = {
 			isa = PBXGroup;
 			children = (
@@ -70,18 +124,18 @@
 		A8C101CB23E6A1AD008BA1D8 /* MVPHaptikToDoApp */ = {
 			isa = PBXGroup;
 			children = (
+				A8194C2B23E9349000A00069 /* Protocol */,
+				A8194C2823E933A600A00069 /* Helper */,
+				A8194C2723E9338100A00069 /* Data Manager */,
+				A8194C2623E9337200A00069 /* Presenter */,
+				A8194C2523E9336A00A00069 /* View */,
+				A8194C2423E9336000A00069 /* Model */,
 				A8C101E823E6ACD2008BA1D8 /* CoreData */,
 				A8C101CC23E6A1AD008BA1D8 /* AppDelegate.swift */,
-				A8C101E023E6A3A2008BA1D8 /* ToDoList.swift */,
 				A8C101D223E6A1AD008BA1D8 /* Main.storyboard */,
 				A8C101D523E6A1AE008BA1D8 /* Assets.xcassets */,
 				A8C101D723E6A1AE008BA1D8 /* LaunchScreen.storyboard */,
 				A8C101DA23E6A1AE008BA1D8 /* Info.plist */,
-				A8C101E223E6A3C2008BA1D8 /* ImportantList.swift */,
-				A8C101E423E6A417008BA1D8 /* CustomCell.swift */,
-				A8C101E623E6A69B008BA1D8 /* ToDoVC.swift */,
-				A8C1022F23E6B012008BA1D8 /* DBHandler.swift */,
-				A8423EF123E7D639006C3589 /* Util.swift */,
 			);
 			path = MVPHaptikToDoApp;
 			sourceTree = "<group>";
@@ -168,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C101CD23E6A1AD008BA1D8 /* AppDelegate.swift in Sources */,
+				A8194C2A23E933F700A00069 /* Presenter.swift in Sources */,
 				A8C101EB23E6AD29008BA1D8 /* TODO.xcdatamodeld in Sources */,
 				A8C1023023E6B012008BA1D8 /* DBHandler.swift in Sources */,
 				A8423EF623E7E55C006C3589 /* ToDo+CoreDataProperties.swift in Sources */,
@@ -177,6 +232,7 @@
 				A8423EF223E7D639006C3589 /* Util.swift in Sources */,
 				A8C101E123E6A3A2008BA1D8 /* ToDoList.swift in Sources */,
 				A8423EF523E7E55C006C3589 /* ToDo+CoreDataClass.swift in Sources */,
+				A8194C2D23E934AE00A00069 /* Protocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,15 @@
 
 import UIKit
 
-class ToDoList: UITableViewController {
+class ToDoList: UITableViewController{
+    
+    lazy var presenter: Presenter = {
+       return Presenter(DBHandler.sharedManager)
+    }()
+    
+    lazy var predicate: NSPredicate = {
+        return NSPredicate(format: "isdeleted == false")
+    }()
     
     lazy var strokeEffect: [NSAttributedString.Key : Any] = {
        return [
@@ -16,33 +24,25 @@ class ToDoList: UITableViewController {
         NSAttributedString.Key.strikethroughColor: UIColor.black,
         ]
     }()
+    
     var arrToDo = [ToDo]()
     
     let cellIdentifier = "cell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        presenter.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        arrToDo = DBHandler.sharedManager.fetchToDo(NSPredicate(format: "isdeleted == false"))
-        tableView.reloadData()
+        fetchData()
     }
     
     @IBAction func btnAddToDoClicked(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ToDoVC")
         let nav = UINavigationController(rootViewController: vc!)
         present(nav, animated: true, completion: nil)
-    
     }
     // MARK: - Table view data source
 
@@ -68,10 +68,6 @@ class ToDoList: UITableViewController {
         else{
             cell.lblDesc.text = toDo.desc
         }
-        
-
-        // Configure the cell...
-
         return cell
     }
     
@@ -90,7 +86,7 @@ class ToDoList: UITableViewController {
             //Adding destuctive will cause to delete the cell automatically
             let action = UIContextualAction(style: .destructive, title: "Delete",
                                             handler: { (action, view, completionHandler) in
-                                                DBHandler.sharedManager.persistentContainer.viewContext.delete(toDo)
+                                                toDo.isdeleted = true
                                                 DBHandler.sharedManager.saveContext()
                                                 completionHandler(true)
             })
@@ -112,6 +108,10 @@ class ToDoList: UITableViewController {
                                             toDo.iscompleted = true
                                             DBHandler.sharedManager.saveContext()
                                             tableView.reloadRows(at: [indexPath], with: .fade)
+                                            DispatchQueue.main.asyncAfter(deadline: .now()+5, execute: {
+                                                toDo.isdeleted = true
+                                                self.fetchData()
+                                            })
                                             completionHandler(true)
         })
         doneAction.backgroundColor = .red
@@ -129,4 +129,15 @@ class ToDoList: UITableViewController {
         return configuration
     }
 
+}
+
+extension ToDoList: DBHandlerDelegate{
+    
+    func fetchData(){
+        presenter.fetchDataForPredicate(predicate)
+    }
+    func updateVCwithData(data: [ToDo]) {
+        arrToDo = data
+        tableView.reloadData()
+    }
 }
